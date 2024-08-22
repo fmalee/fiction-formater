@@ -1,0 +1,311 @@
+{
+    "name": "fiction-formater",
+    "displayName": "小说格式化",
+    "description": "网络文本小说的格式化，包括简繁、全半角转换，以及段落清理",
+    "version": "1.0.0",
+    "publisher": "fmalee",
+    "private": true,
+    "license": "MIT",
+    "repository": "https://github.com/fmalee/fiction-formater",
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "categories": [
+        "Formatters",
+        "Other"
+    ],
+    "icon": "icon.png",
+    "activationEvents": [],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "fiction-formater.h2fAlphaNumSymbol",
+                 "title": "%command.AlphaNumSymbol%",
+                "category": "%category.halfToFull%"
+            },
+            {
+                "command": "fiction-formater.h2fAlphaNum",
+                 "title": "%command.AlphaNum%",
+                "category": "%category.halfToFull%"
+            },
+            {
+                "command": "fiction-formater.h2fAlphabet",
+                 "title": "%command.Alphabet%",
+                "category": "%category.halfToFull%"
+            },
+            {
+                "command": "fiction-formater.h2fNumber",
+                 "title": "%command.Number%",
+                "category": "%category.halfToFull%"
+            },
+            {
+                "command": "fiction-formater.h2fSymbol",
+                 "title": "%command.Symbol%",
+                "category": "%category.halfToFull%"
+            },
+            {
+                "command": "fiction-formater.f2hAlphaNumSymbol",
+                 "title": "%command.AlphaNumSymbol%",
+                "category": "%category.fullToHalf%"
+            },
+            {
+                "command": "fiction-formater.f2hAlphaNum",
+                 "title": "%command.AlphaNum%",
+                "category": "%category.fullToHalf%"
+            },
+            {
+                "command": "fiction-formater.f2hAlphabet",
+                 "title": "%command.Alphabet%",
+                "category": "%category.fullToHalf%"
+            },
+            {
+                "command": "fiction-formater.f2hNumber",
+                 "title": "%command.Number%",
+                "category": "%category.fullToHalf%"
+            },
+            {
+                "command": "fiction-formater.f2hSymbol",
+                 "title": "%command.Symbol%",
+                "category": "%category.fullToHalf%"
+            },
+            {
+                "command": "fiction-formater.t2sCommon",
+                 "title": "%command.t2sCommon%",
+                "category": "%category.chinese%"
+            },
+            {
+                "command": "fiction-formater.t2sTw",
+                 "title": "%command.t2sTw%",
+                "category": "%category.chinese%"
+            },
+            {
+                "command": "fiction-formater.s2tCommon",
+                 "title": "%command.s2tCommon%",
+                "category": "%category.chinese%"
+            },
+            {
+                "command": "fiction-formater.s2tTw",
+                 "title": "%command.s2tTw%",
+                "category": "%category.chinese%"
+            },
+            {
+                "command": "fiction-formater.fictionFormat",
+                 "title": "%command.fictionFormat%",
+                "category": "%category.fiction%"
+            },
+            {
+                "command": "fiction-formater.fictionClear",
+                 "title": "%command.fictionClear%",
+                "category": "%category.fiction%"
+            }
+        ],
+        "configuration": {
+            "title": "%fiction-formater%",
+            "properties": {
+                "fictionFormater.companionCharacterTo.space": {
+                    "type":"string",
+                    "markdownDescription": "%config.companion.space%",
+                    "default": "　",
+                    "enum": [" ", "　"],
+                    "enumDescriptions": [
+                        "%config.companion.space.space%",
+                        "%config.companion.space.fullwidth%"
+                    ]
+                },
+                "fictionFormater.companionCharacterTo.backslash": {
+                    "type":"string",
+                    "markdownDescription": "%config.companion.backslash%",
+                    "default": "＼",
+                    "enum": ["＼", "￥"],
+                    "enumDescriptions": [
+                        "%config.companion.backslash.backslash%",
+                        "%config.companion.backslash.yen%"
+                    ]
+                },
+                "fictionFormater.companionCharacterTo.hyphen": {
+                    "type":"string",
+                    "markdownDescription": "%config.companion.hyphen%",
+                    "default": "－",
+                    "enum": ["—", "―", "－"],
+                    "enumDescriptions": [
+                        "%config.companion.hyphen.u2014%",
+                        "%config.companion.hyphen.u2015%",
+                        "%config.companion.hyphen.uff0d%"
+                    ]
+                },
+                "fictionFormater.companionCharacterTo.tilde": {
+                    "type":"string",
+                    "markdownDescription": "%config.companion.tilde%",
+                    "default": "～",
+                    "enum": ["～", "〜"],
+                    "enumDescriptions": [
+                        "%config.companion.tilde.fullWidthTilde%",
+                        "%config.companion.tilde.waveDash%"
+                    ]
+                },
+                "fictionFormater.companionCharacterTo.period": {
+                    "type":"string",
+                    "markdownDescription": "%config.companion.period%",
+                    "default": "。",
+                    "enum": ["．", "。"],
+                    "enumDescriptions": [
+                        "%config.companion.period.fullWidthPeriod%",
+                        "%config.companion.period.ideographicFullStop%"
+                    ]
+                },
+                "fictionFormater.companionCharacterTo.comma": {
+                    "type":"string",
+                    "markdownDescription": "%config.companion.comma%",
+                    "default": "，",
+                    "enum": ["，", "、"],
+                    "enumDescriptions": [
+                        "%config.companion.comma.fullwidthComma%",
+                        "%config.companion.comma.ideographicComma%"
+                    ]
+                },
+                "fictionFormater.fiction.intoSimplifiedChineseIncludesTw": {
+                    "type":"boolean",
+                    "description": "%config.description.fiction.intoSimplifiedChineseIncludesTw%",
+                    "default": false
+                }
+            }
+        },
+        "submenus": [
+            {
+                "id": "fiction-formater.fiction",
+                "label": "%category.fiction%"
+            },
+            {
+                "id": "fiction-formater.chinese",
+                "label": "%category.chinese%"
+            },
+            {
+                "id": "fiction-formater.full2half",
+                "label": "%category.fullToHalf%"
+            },
+            {
+                "id": "fiction-formater.half2full",
+                "label": "%category.halfToFull%"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "submenu": "fiction-formater.fiction",
+                    "group": "1_modification@11",
+                    "when": "resourceLangId == plaintext"
+                },
+                {
+                    "submenu": "fiction-formater.chinese",
+                    "group": "1_modification@12",
+                    "when": "resourceLangId == plaintext"
+                },
+                {
+                    "submenu": "fiction-formater.full2half",
+                    "group": "1_modification@13",
+                    "when": "resourceLangId == plaintext"
+                },
+                {
+                    "submenu": "fiction-formater.half2full",
+                    "group": "1_modification@14",
+                    "when": "resourceLangId == plaintext"
+                }
+            ],
+            "fiction-formater.fiction": [
+                {
+                    "command": "fiction-formater.fictionFormat",
+                    "group": "fiction@1"
+                },
+                {
+                    "command": "fiction-formater.fictionClear",
+                    "group": "fiction@2"
+                }
+            ],
+            "fiction-formater.chinese": [
+                {
+                    "command": "fiction-formater.t2sCommon",
+                    "group": "chinese@1"
+                },
+                {
+                    "command": "fiction-formater.t2sTw",
+                    "group": "chinese@2"
+                },
+                {
+                    "command": "fiction-formater.s2tCommon",
+                    "group": "chinese@3"
+                },
+                {
+                    "command": "fiction-formater.s2tTw",
+                    "group": "chinese@4"
+                }
+            ],
+            "fiction-formater.full2half": [
+                {
+                    "command": "fiction-formater.f2hAlphaNumSymbol",
+                    "group": "full2half@1"
+                },
+                {
+                    "command": "fiction-formater.f2hAlphaNum",
+                    "group": "full2half@2"
+                },
+                {
+                    "command": "fiction-formater.f2hAlphabet",
+                    "group": "full2half@3"
+                },
+                {
+                    "command": "fiction-formater.f2hNumber",
+                    "group": "full2half@4"
+                },
+                {
+                    "command": "fiction-formater.f2hSymbol",
+                    "group": "full2half@5"
+                }
+            ],
+            "fiction-formater.half2full": [
+                {
+                    "command": "fiction-formater.h2fAlphaNumSymbol",
+                    "group": "half2full@1"
+                },
+                {
+                    "command": "fiction-formater.h2fAlphaNum",
+                    "group": "half2full@2"
+                },
+                {
+                    "command": "fiction-formater.h2fAlphabet",
+                    "group": "half2full@3"
+                },
+                {
+                    "command": "fiction-formater.h2fNumber",
+                    "group": "half2full@4"
+                },
+                {
+                    "command": "fiction-formater.h2fSymbol",
+                    "group": "half2full@5"
+                }
+            ]
+          }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint \"src/**/*.ts\"",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^18",
+        "@types/vscode": "^1.73.0",
+        "@typescript-eslint/eslint-plugin": "^7.14.0",
+        "@typescript-eslint/parser": "^7.14.0",
+        "@vscode/test-electron": "^2.3.9",
+        "eslint": "^8.26.0",
+        "glob": "^7.1.4",
+        "mocha": "^10.2.0",
+        "source-map-support": "^0.5.12",
+        "typescript": "^5.5.2"
+    }
+}
