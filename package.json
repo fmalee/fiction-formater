@@ -2,7 +2,7 @@
     "name": "fiction-formater",
     "displayName": "小说格式化",
     "description": "网络文本小说的格式化，包括简繁、全半角转换，以及段落清理",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "fmalee",
     "private": true,
     "license": "MIT",
