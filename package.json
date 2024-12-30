@@ -2,7 +2,7 @@
     "name": "fiction-formater",
     "displayName": "小说格式化",
     "description": "网络文本小说的格式化，包括简繁、全半角转换，以及段落清理",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "publisher": "fmalee",
     "private": true,
     "license": "MIT",
@@ -80,6 +80,11 @@
                 "category": "%category.chinese%"
             },
             {
+                "command": "fiction-formater.t2sExtend",
+                 "title": "%command.t2sExtend%",
+                "category": "%category.chinese%"
+            },
+            {
                 "command": "fiction-formater.s2tCommon",
                  "title": "%command.s2tCommon%",
                 "category": "%category.chinese%"
@@ -87,6 +92,11 @@
             {
                 "command": "fiction-formater.s2tTw",
                  "title": "%command.s2tTw%",
+                "category": "%category.chinese%"
+            },
+            {
+                "command": "fiction-formater.s2tExtend",
+                 "title": "%command.s2tExtend%",
                 "category": "%category.chinese%"
             },
             {
@@ -232,12 +242,20 @@
                     "group": "chinese@2"
                 },
                 {
-                    "command": "fiction-formater.s2tCommon",
+                    "command": "fiction-formater.t2sExtend",
                     "group": "chinese@3"
                 },
                 {
-                    "command": "fiction-formater.s2tTw",
+                    "command": "fiction-formater.s2tCommon",
                     "group": "chinese@4"
+                },
+                {
+                    "command": "fiction-formater.s2tTw",
+                    "group": "chinese@5"
+                },
+                {
+                    "command": "fiction-formater.s2tExtend",
+                    "group": "chinese@6"
                 }
             ],
             "fiction-formater.full2half": [

@@ -97,13 +97,17 @@ export const f2hNumber = (text: string): string => substitueAll(text, /[０-９]
 export const f2hSymbol = (text: string): string => convertAlphaSymbol(text, false, false).replace(/[—―–]/g, "-");
 
 /** 繁体转简体 */
-export const t2sCommon = (text: string): string => transverter(text, { type: "simplified", language: "" });
+export const t2sCommon = (text: string): string => transverter(text, { type: "simplified", language: "", extend: false });
 /** 繁体转简体，同时转换台湾惯用语 */
-export const t2sTw = (text: string): string => transverter(text, { type: "simplified", language: "zh_TW" });
+export const t2sTw = (text: string): string => transverter(text, { type: "simplified", language: "zh_TW", extend: false });
+/** 繁体转简体，同时转换台湾惯用语+异义字 */
+export const t2sExtend = (text: string): string => transverter(text, { type: "simplified", language: "zh_TW", extend: true });
 /** 简体转繁体 */
-export const s2tCommon = (text: string): string => transverter(text, { type: "traditional", language: "" });
+export const s2tCommon = (text: string): string => transverter(text, { type: "traditional", language: "", extend: false });
 /** 简体转繁体，同时转换为台湾惯用语 */
-export const s2tTw = (text: string): string => transverter(text, { type: "traditional", language: "zh_TW" });
+export const s2tTw = (text: string): string => transverter(text, { type: "traditional", language: "zh_TW", extend: false });
+/** 简体转繁体，同时转换为台湾惯用语+异义字 */
+export const s2tExtend = (text: string): string => transverter(text, { type: "traditional", language: "zh_TW", extend: true });
 
 /** 清理小说段落 */
 export const fictionClear = (text: string): string => {
@@ -129,7 +133,7 @@ export const fictionFormat = (text: string): string => {
     // 在转换成简体时，是否同时转换台湾惯用语
     const isIncludesTw = vscode.workspace.getConfiguration("fictionFormater.fiction").get("intoSimplifiedChineseIncludesTw") as unknown as boolean;
 
-    text = transverter(text, { type: "simplified", language: isIncludesTw ? 'zh_TW' : '' }); // 转换繁体
+    text = transverter(text, { type: "simplified", language: isIncludesTw ? 'zh_TW' : '', extend: false }); // 转换繁体
     text = substitueAll(text, /[ａ-ｚ０-９＋－]/gi, -0xFEE0); // 转换全角字母、数字、特殊标点
 
     return fictionClear(text); // 清理段落
@@ -171,8 +175,10 @@ export function activate(context: vscode.ExtensionContext) {
         register("fiction-formater.fictionClear", handler(fictionClear)),
         register("fiction-formater.t2sCommon", handler(t2sCommon)),
         register("fiction-formater.t2sTw", handler(t2sTw)),
+        register("fiction-formater.t2sExtend", handler(t2sExtend)),
         register("fiction-formater.s2tCommon", handler(s2tCommon)),
         register("fiction-formater.s2tTw", handler(s2tTw)),
+        register("fiction-formater.s2tExtend", handler(s2tExtend)),
     ] as const;
     disposables.forEach( (d) => context.subscriptions.push(d) );
 

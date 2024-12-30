@@ -2,7 +2,8 @@ import * as assert from 'assert';
 import {
     h2fAlphaNumSymbol, h2fAlphaNum, h2fAlphabet, h2fNumber, h2fSymbol,
     f2hAlphaNumSymbol, f2hAlphaNum, f2hAlphabet, f2hNumber, f2hSymbol,
-    t2sCommon, t2sTw, s2tCommon, s2tTw, fictionClear, fictionFormat
+    t2sCommon, t2sTw, t2sExtend, s2tCommon, s2tTw, s2tExtend,
+    fictionClear, fictionFormat
 } from "../../extension";
 
 suite('Extension Test Suite', () => {
@@ -14,8 +15,10 @@ suite('Extension Test Suite', () => {
     const fullChars = `！＂＃＄％＆＇（）＊＋，－。／：；＜＝＞？＠［＼］＾＿｀｛｜｝～　`;
     const sCommon = `锕爱碍蔼皑剀嗳嫒暧瑷硙锿阂霭布占恒致征折向“”`;
     const sStd = `堵塞公元`;
+    const sExtend = `沉借着`;
     const tCommon = `錒愛礙藹皚剴噯嬡曖璦磑鎄閡靄佈佔恆緻徵摺嚮「」`;
     const tTw = `壅塞西元`;
+    const tExtend = `沈藉著`;
     const fClear = ` \n　\n　 \n 　	\n 　段首空格\n　 段首空格2\n\n\n\n　删除空白行\n 　段首\n断行1\n\n断行2\n断行3\n\n　 段首2\n....转换省略号\n…补全省略号\n`;
     const fClearAssert = `\n　　段首空格\n　　段首空格2\n　　删除空白行\n　　段首断行1断行2断行3\n　　段首2……转换省略号……补全省略号\n`;
     suite("half → full", () => {
@@ -35,8 +38,10 @@ suite('Extension Test Suite', () => {
     suite("Chinese", () => {
         test("Traditional → Simplified", () => assert.equal(t2sCommon(`${tCommon}`), `${sCommon}`));
         test("Traditional+Locution → Simplified", () => assert.equal(t2sTw(`${tCommon}${tTw}`), `${sCommon}${sStd}`));
+        test("Traditional+Locution+Extend → Simplified", () => assert.equal(t2sExtend(`${tCommon}${tTw}${tExtend}`), `${sCommon}${sStd}${sExtend}`));
         test("Simplified → Traditional", () => assert.equal(s2tCommon(`${sCommon}`), `${tCommon}`));
         test("Simplified+Locution → Traditional", () => assert.equal(s2tTw(`${sCommon}${sStd}`), `${tCommon}${tTw}`));
+        test("Simplified+Locution+Extend → Traditional", () => assert.equal(s2tExtend(`${sCommon}${sStd}${sExtend}`), `${tCommon}${tTw}${tExtend}`));
     });
     suite("Fiction", () => {
         test("Clear", () => assert.equal(fictionClear(`${fClear}`), `${fClearAssert}`));
